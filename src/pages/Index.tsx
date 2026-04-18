@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import StatsOverlay, { PlayerData } from "@/components/StatsOverlay";
 
-const API_URL = "http://localhost:8000/api/current-player-stats";
+const API_URL = "https://stats-server-sr17.onrender.com/api/current-player-stats";
 
 const Index = () => {
   const [data, setData] = useState<PlayerData | null>(null);
@@ -23,7 +23,7 @@ const Index = () => {
     };
 
     fetchData();
-    const id = setInterval(fetchData, 2000);
+    const id = setInterval(fetchData, 4000);
     return () => {
       cancelled = true;
       clearInterval(id);
