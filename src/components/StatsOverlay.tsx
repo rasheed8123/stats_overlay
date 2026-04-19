@@ -81,8 +81,9 @@ const StatsOverlay = ({ data }: { data: PlayerData | null }) => {
     : null;
 
   return (
-    <main className="fixed inset-0 flex items-center justify-center p-6 bg-transparent overflow-hidden">
-      <div className="flex flex-col items-center gap-3">
+    <main className="fixed inset-0 flex items-center justify-between p-6 bg-transparent overflow-hidden">
+      {/* Left Side - Name and Bowling */}
+      <div className="flex flex-col items-start gap-3">
         {data?.playerName && (
           <div className="overlay-glass rounded-full px-7 py-2 flex items-center gap-3">
             <span className="h-2 w-2 rounded-full bg-overlay-accent animate-pulse shadow-[0_0_10px_hsl(var(--overlay-accent))]" />
@@ -97,30 +98,32 @@ const StatsOverlay = ({ data }: { data: PlayerData | null }) => {
           </div>
         )}
 
-        <div className="flex flex-row items-stretch gap-4">
-          <Panel title="Bowling" accentSide="left">
-            <StatRow label="Wickets" value={bowling.wickets} highlight />
-            <StatRow label="Matches" value={bowling.matches} />
-            <StatRow label="Innings" value={bowling.innings} />
-            <StatRow label="Overs" value={bowling.overs} />
-            <StatRow label="Economy" value={bowling.economy} />
-            <StatRow label="Average" value={bowling.avg} />
-            <StatRow label="Best" value={bowling.bestbowling} />
-            <StatRow label="Dot Balls" value={bowling.dotballs} />
-          </Panel>
+        <Panel title="Bowling" accentSide="left">
+          <StatRow label="Wickets" value={bowling.wickets} highlight />
+          <StatRow label="Matches" value={bowling.matches} />
+          <StatRow label="Innings" value={bowling.innings} />
+          <StatRow label="Overs" value={bowling.overs} />
+          <StatRow label="Economy" value={bowling.economy} />
+          <StatRow label="Average" value={bowling.avg} />
+          <StatRow label="Best" value={bowling.bestbowling} />
+          <StatRow label="Dot Balls" value={bowling.dotballs} />
+        </Panel>
+      </div>
 
-          <Panel title="Batting" accentSide="right">
-            <StatRow label="Runs" value={batting.runs} highlight />
-            <StatRow label="Matches" value={batting.matches} />
-            <StatRow label="Innings" value={batting.innings} />
-            <StatRow label="Highest" value={batting.highestruns} />
-            <StatRow label="Average" value={batting.avg} />
-            <StatRow label="Strike Rate" value={batting.sr} />
-            <StatRow label="Fours" value={batting["4s"]} />
-            <StatRow label="Sixes" value={batting["6s"]} />
-          </Panel>
-        </div>
+      {/* Right Side - Batting */}
+      <Panel title="Batting" accentSide="right">
+        <StatRow label="Runs" value={batting.runs} highlight />
+        <StatRow label="Matches" value={batting.matches} />
+        <StatRow label="Innings" value={batting.innings} />
+        <StatRow label="Highest" value={batting.highestruns} />
+        <StatRow label="Average" value={batting.avg} />
+        <StatRow label="Strike Rate" value={batting.sr} />
+        <StatRow label="Fours" value={batting["4s"]} />
+        <StatRow label="Sixes" value={batting["6s"]} />
+      </Panel>
 
+      {/* Bottom Center - Fielding and Timestamp */}
+      <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex flex-col items-center gap-3">
         {(fielding.catches !== undefined || fielding.runouts !== undefined) && (
           <div className="overlay-glass rounded-full px-6 py-2 flex items-center gap-6 text-sm">
             <span className="text-overlay-label uppercase tracking-[0.2em] text-[10px] font-semibold">
