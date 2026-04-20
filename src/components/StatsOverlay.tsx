@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import playerImage from "@/assets/players/p1.jpeg";
 
 export interface PlayerData {
   playerName?: string;
@@ -82,12 +83,25 @@ const StatsOverlay = ({ data }: { data: PlayerData | null }) => {
 
   return (
     <main className="fixed inset-0 flex items-center justify-between p-6 bg-transparent overflow-hidden">
-      {/* Left Side - Name and Bowling */}
-      <div className="flex flex-col items-start gap-3">
+      {/* Left Side - Bowling */}
+      <Panel title="Bowling" accentSide="left">
+        <StatRow label="Wickets" value={bowling.wickets} highlight />
+        <StatRow label="Matches" value={bowling.matches} />
+        <StatRow label="Innings" value={bowling.innings} />
+        <StatRow label="Overs" value={bowling.overs} />
+        <StatRow label="Economy" value={bowling.economy} />
+        <StatRow label="Average" value={bowling.avg} />
+        <StatRow label="Best" value={bowling.bestbowling} />
+        <StatRow label="Dot Balls" value={bowling.dotballs} />
+      </Panel>
+
+      {/* Center - Name, Image, and Fielding */}
+      <div className="flex flex-col items-center justify-center gap-4 flex-1">
+        {/* Player Name */}
         {data?.playerName && (
           <div className="overlay-glass rounded-full px-7 py-2 flex items-center gap-3">
             <span className="h-2 w-2 rounded-full bg-overlay-accent animate-pulse shadow-[0_0_10px_hsl(var(--overlay-accent))]" />
-            <h1 className="text-overlay-value text-xl font-bold tracking-wide">
+            <h1 className="text-overlay-value text-2xl font-bold tracking-wide">
               {data.playerName}
             </h1>
             {data.playerId && (
@@ -98,32 +112,24 @@ const StatsOverlay = ({ data }: { data: PlayerData | null }) => {
           </div>
         )}
 
-        <Panel title="Bowling" accentSide="left">
-          <StatRow label="Wickets" value={bowling.wickets} highlight />
-          <StatRow label="Matches" value={bowling.matches} />
-          <StatRow label="Innings" value={bowling.innings} />
-          <StatRow label="Overs" value={bowling.overs} />
-          <StatRow label="Economy" value={bowling.economy} />
-          <StatRow label="Average" value={bowling.avg} />
-          <StatRow label="Best" value={bowling.bestbowling} />
-          <StatRow label="Dot Balls" value={bowling.dotballs} />
-        </Panel>
-      </div>
+        {/* Player Image Box */}
+        <div 
+          className="rounded-2xl overflow-hidden border-2 shadow-lg"
+          style={{
+            borderColor: "#0ea5e9",
+            boxShadow: "0 0 30px rgba(14, 165, 233, 0.4), inset 0 0 20px rgba(14, 165, 233, 0.1)",
+            width: "280px",
+            height: "280px",
+          }}
+        >
+          <img 
+            src={playerImage} 
+            alt={data?.playerName || "Player"} 
+            className="w-full h-full object-contain bg-black/20"
+          />
+        </div>
 
-      {/* Right Side - Batting */}
-      <Panel title="Batting" accentSide="right">
-        <StatRow label="Runs" value={batting.runs} highlight />
-        <StatRow label="Matches" value={batting.matches} />
-        <StatRow label="Innings" value={batting.innings} />
-        <StatRow label="Highest" value={batting.highestruns} />
-        <StatRow label="Average" value={batting.avg} />
-        <StatRow label="Strike Rate" value={batting.sr} />
-        <StatRow label="Fours" value={batting["4s"]} />
-        <StatRow label="Sixes" value={batting["6s"]} />
-      </Panel>
-
-      {/* Bottom Center - Fielding and Timestamp */}
-      <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex flex-col items-center gap-3">
+        {/* Fielding Stats */}
         {(fielding.catches !== undefined || fielding.runouts !== undefined) && (
           <div className="overlay-glass rounded-full px-6 py-2 flex items-center gap-6 text-sm">
             <span className="text-overlay-label uppercase tracking-[0.2em] text-[10px] font-semibold">
@@ -144,12 +150,25 @@ const StatsOverlay = ({ data }: { data: PlayerData | null }) => {
           </div>
         )}
 
+        {/* Timestamp */}
         {lastUpdated && (
           <div className="text-overlay-label/60 text-[10px] uppercase tracking-[0.25em]">
             Live · Updated {lastUpdated}
           </div>
         )}
       </div>
+
+      {/* Right Side - Batting */}
+      <Panel title="Batting" accentSide="right">
+        <StatRow label="Runs" value={batting.runs} highlight />
+        <StatRow label="Matches" value={batting.matches} />
+        <StatRow label="Innings" value={batting.innings} />
+        <StatRow label="Highest" value={batting.highestruns} />
+        <StatRow label="Average" value={batting.avg} />
+        <StatRow label="Strike Rate" value={batting.sr} />
+        <StatRow label="Fours" value={batting["4s"]} />
+        <StatRow label="Sixes" value={batting["6s"]} />
+      </Panel>
     </main>
   );
 };
