@@ -2,7 +2,6 @@ import { useEffect, useRef, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import { gsap } from "gsap";
 import CountUp from "react-countup";
-import playerHero from "@/assets/players/p1.jpeg";
 import type { PlayerData } from "@/components/StatsOverlay";
 
 const API_URL = "https://stats-server-sr17.onrender.com/api/current-player-stats";
@@ -627,7 +626,7 @@ const Showcase = () => {
           <div className="w-full md:w-1/2 flex items-center justify-center min-h-0 px-0 md:px-4">
             <div
               ref={heroRef}
-              className="relative w-4/5 md:w-3/4 aspect-square rounded-2xl overflow-hidden group"
+              className="relative w-3/5 md:w-1/2 aspect-[3/4] rounded-2xl overflow-hidden group"
               style={{
                 border: "3px solid #00d4ff",
                 borderRight: "3px solid #d946ef",
@@ -643,7 +642,7 @@ const Showcase = () => {
               }}
             >
               <img
-                src={playerHero}
+                src={`/assets/players/${data?.playerId}.png`}
                 alt="Player"
                 className="w-full h-full object-contain object-center group-hover:scale-110 transition-transform duration-1000"
               />

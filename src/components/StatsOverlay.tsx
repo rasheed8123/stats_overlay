@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import playerImage from "@/assets/players/p1.jpeg";
 
 export interface PlayerData {
   playerName?: string;
@@ -118,12 +117,12 @@ const StatsOverlay = ({ data }: { data: PlayerData | null }) => {
           style={{
             borderColor: "#0ea5e9",
             boxShadow: "0 0 30px rgba(14, 165, 233, 0.4), inset 0 0 20px rgba(14, 165, 233, 0.1)",
-            width: "280px",
-            height: "280px",
+            width: "260px",
+            height: "346px",
           }}
         >
           <img 
-            src={playerImage} 
+            src={`/assets/players/${data?.playerId}.png`}
             alt={data?.playerName || "Player"} 
             className="w-full h-full object-contain bg-black/20"
           />
